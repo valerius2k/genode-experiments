@@ -1,0 +1,40 @@
+<runtime ram="4300M" caps="1500" binary="init" config="init.config">
+
+	<requires>
+		<file_system label="vm"/>
+		<file_system label="shared"/>
+		<nitpicker/>
+		<nic/>
+		<rom label="capslock"/>
+		<rom label="platform_info"/>
+		<rom label="usb_devices"/>
+		<report label="shape"/>
+		<report/>
+		<rm/>
+		<rtc/>
+		<usb/>
+		<block label="7"/>
+		<block label="9"/>
+		<block label="1"/>
+		<block label="8"/>
+		<audio_in/>
+		<audio_out/>
+	</requires>
+
+	<content>
+		<rom label="init.config"/>
+		<rom label="ld.lib.so"/>
+		<rom label="init"/>
+		<rom label="timer"/>
+		<rom label="virtualbox5-nova"/>
+		<rom label="libc.lib.so"/>
+		<rom label="libc_pipe.lib.so"/>
+		<rom label="libc_terminal.lib.so"/>
+		<rom label="libm.lib.so"/>
+		<rom label="libiconv.lib.so"/>
+		<rom label="qemu-usb.lib.so"/>
+		<rom label="stdcxx.lib.so"/>
+		<rom label="vfs.lib.so"/>
+	</content>
+
+</runtime>

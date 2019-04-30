@@ -1,0 +1,93 @@
+<runtime ram="600M" caps="1024" binary="init">
+
+	<requires>
+		<!-- <audio_in/> -->
+		<audio_out/>
+		<file_system label="shared"/>
+		<file_system label="vm"/>
+		<rom label="capslock"/>
+		<rom label="platform_info"/>
+		<rom label="usb_devices"/>
+		<report label="shape"/>
+		<report/>
+		<nitpicker/>
+		<rm/>
+		<rtc/>
+		<usb/>
+		<nic/>
+	</requires>
+
+	<content>
+		<rom label="init"/>
+		<rom label="ld.lib.so"/>
+		<rom label="libc.lib.so"/>
+		<rom label="libm.lib.so"/>
+		<rom label="libc_pipe.lib.so"/>
+		<rom label="libc_terminal.lib.so"/>
+		<rom label="libiconv.lib.so"/>
+		<rom label="qemu-usb.lib.so"/>
+		<rom label="stdcxx.lib.so"/>
+		<rom label="kolibrios.iso"/>
+		<rom label="kolibrios.vbox"/>
+		<rom label="vfs.lib.so"/>
+		<rom label="virtualbox5-nova"/>
+	</content>
+
+	<config prio_levels="2">
+
+		<parent-provides>
+			<service name="File_system"/>
+			<service name="Audio_in"/>
+			<service name="Audio_out"/>
+			<service name="CPU"/>
+			<service name="LOG"/>
+			<service name="Nitpicker"/>
+			<service name="PD"/>
+			<service name="Report"/>
+			<service name="RM"/>
+			<service name="ROM"/>
+			<service name="Rtc"/>
+			<service name="Timer"/>
+			<service name="Usb"/>
+			<service name="Nic"/>
+		</parent-provides>
+
+		<default-route> <any-service> <parent/> <any-child/> </any-service> </default-route>
+
+		<default caps="100"/>
+
+		<start name="vbox" priority="-1" caps="1000">
+			<binary name="virtualbox5-nova" />
+			<resource name="RAM" quantum="500M"/>
+			<exit propagate="yes"/>
+			<config vbox_file="kolibrios.vbox" xhci="yes" vm_name="kolibrios" capslock="ROM">
+				<vfs>
+					<dir name="dev">
+						<log/>
+						<rtc/>
+					 </dir>
+					<dir name="shared">
+						<fs label="shared" writeable="yes"/>
+					</dir>
+					<fs writeable="yes"/>
+					<rom name="kolibrios.iso"/>
+					<rom name="kolibrios.vbox"/>
+				</vfs>
+				<libc stdout="/dev/log" stderr="/dev/log" rtc="/dev/rtc"/>
+			</config>
+			<route>
+				<service name="File_system" label="shared"> <parent label="shared"/> </service>
+				<service name="File_system"> <parent label="vm"/> </service>
+				<service name="ROM" label="usb_devices"> <parent label="usb_devices"/> </service>
+				<service name="ROM" label="capslock"> <parent label="capslock"/> </service>
+				<service name="ROM" label="platform_info">
+					<parent label="platform_info"/> </service>
+				<service name="Report" label="shape"> <parent label="shape"/> </service>
+				<service name="ROM"    label="clipboard"> <parent label="clipboard"/> </service>
+				<service name="Report" label="clipboard"> <parent label="clipboard"/> </service>
+				<any-service> <parent/> </any-service>
+			</route>
+		</start>
+	</config>
+
+</runtime>
