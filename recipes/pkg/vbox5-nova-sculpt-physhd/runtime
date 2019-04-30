@@ -1,15 +1,15 @@
 <runtime ram="4300M" caps="1500" binary="init" config="init.config">
 
 	<requires>
-		<file_system label="vm"/>
 		<file_system label="shared"/>
-		<nitpicker/>
-		<nic/>
+		<file_system label="vm"/>
 		<rom label="capslock"/>
 		<rom label="platform_info"/>
 		<rom label="usb_devices"/>
 		<report label="shape"/>
 		<report/>
+		<nitpicker/>
+		<nic/>
 		<rm/>
 		<rtc/>
 		<usb/>
