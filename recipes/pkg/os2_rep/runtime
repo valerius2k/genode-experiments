@@ -84,6 +84,8 @@
 				<service name="ROM" label="platform_info">
 					<parent label="platform_info"/> </service>
 				<service name="Report" label="shape"> <parent label="shape"/> </service>
+				<service name="ROM"    label="clipboard"> <parent label="clipboard"/> </service>
+				<service name="Report" label="clipboard"> <parent label="clipboard"/> </service>
 				<any-service> <parent/> </any-service>
 			</route>
 		</start>
